@@ -1,4 +1,4 @@
-efunction visualizeTimeSeriesImp(folder_path, save_path)
+function visualizeTimeSeriesImp(folder_path, save_path)
 %VISUALIZETIMESERIESIMP Runs the impedance analysis on data in folder path
 %and plots the impedance data over time. Saves the plots in the save_path
 %directory if provided.
@@ -33,12 +33,12 @@ u3_broke = timetable([u3.date]',[u3.broken]');
 % generate figure
 figure()
 hold on;
-plot(u1_broke.var,'o');
-plot(u2_broke.var,'o');
-plot(u3_broke.var,'o');
+plot(u1_broke.Var1,'-o');
+plot(u2_broke.Var1,'-o');
+plot(u3_broke.Var1,'-o');
 ylabel('Broken Electrodes');
 xlabel('Date');
-legend('USEA1','USEA2','USEA3')
+legend('USEA1','USEA2','USEA3');
 
 
 % save plot if given a save path
@@ -47,4 +47,28 @@ if save_path ~= ""
     saveas(gcf, fname, 'svg');
 end
 
-end % visu
+%% VISUALIZE IMPEDANCE
+
+% get in data and put into timetable formate
+u1_imp = timetable([u1.date]',[u1.impedance_mean]');
+u2_imp = timetable([u2.date]',[u2.impedance_mean]');
+u3_imp = timetable([u3.date]',[u3.impedance_mean]');
+
+% generate figure
+figure()
+hold on;
+plot(u1_imp,'-o');
+plot(u2_imp,'-o');
+plot(u3_imp.Var1,'-o');
+ylabel('Impedance (k\Omega)');
+xlabel('Date');
+legend('USEA1','USEA2','USEA3');
+
+
+% save plot if given a save path
+if save_path ~= ""
+    fname = [save_path 'impElects.svg'];
+    saveas(gcf, fname, 'svg');
+end
+
+end % visualizeTimeSeriesImp

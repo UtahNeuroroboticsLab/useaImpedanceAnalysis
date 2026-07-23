@@ -44,13 +44,16 @@ txtdata = char(fread(fid, 'char'));
 fclose(fid);
 
 a = regexp(txtdata', 'Nip1', 'split');
-b = regexp(txtdata','[Test Date]','once');
+date_indx = regexp(txtdata','[Test Date]','once');
 data.file = filename;
 
 
 % scan text data cell
 numchans = length(a)-1;
-date = txtdata((b+23):(b+32))';
+
+% get date
+time_indx = regexp(txtdata','Time]','once');
+date = txtdata((date_indx+23):(time_indx-11))';
 
 a = a(2:end); % trim off first cell entry since it contains crud
 

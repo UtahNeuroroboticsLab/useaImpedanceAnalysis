@@ -33,9 +33,9 @@ u3_broke = timetable([u3.date]',[u3.broken]');
 % generate figure
 figure()
 hold on;
-plot(u1_broke.Var1,'-o');
-plot(u2_broke.Var1,'-o');
-plot(u3_broke.Var1,'-o');
+plot(u1_broke.Time, u1_broke.Var1,'-o');
+plot(u2_broke.Time, u2_broke.Var1,'-o');
+plot(u3_broke.Time, u3_broke.Var1,'-o');
 ylabel('Broken Electrodes');
 xlabel('Date');
 legend('USEA1','USEA2','USEA3');
@@ -43,8 +43,10 @@ legend('USEA1','USEA2','USEA3');
 
 % save plot if given a save path
 if save_path ~= ""
-    fname = [save_path 'brokenElects.svg'];
+    fname = [char(save_path) '\brokenElects.svg'];
     saveas(gcf, fname, 'svg');
+    fname = [char(save_path) '\brokenElects.png'];
+    saveas(gcf, fname, 'png');
 end
 
 %% VISUALIZE IMPEDANCE
@@ -57,9 +59,9 @@ u3_imp = timetable([u3.date]',[u3.impedance_mean]');
 % generate figure
 figure()
 hold on;
-plot(u1_imp.Var1,'-o');
-plot(u2_imp.Var1,'-o');
-plot(u3_imp.Var1,'-o');
+plot(u1_imp.Time, u1_imp.Var1,'-o');
+plot(u2_imp.Time, u2_imp.Var1,'-o');
+plot(u3_imp.Time, u3_imp.Var1,'-o');
 ylabel('Impedance (k\Omega)');
 xlabel('Date');
 legend('USEA1','USEA2','USEA3');
@@ -67,8 +69,10 @@ legend('USEA1','USEA2','USEA3');
 
 % save plot if given a save path
 if save_path ~= ""
-    fname = [save_path 'impElects.svg'];
+    fname = [char(save_path) '\impElects.svg'];
     saveas(gcf, fname, 'svg');
+    fname = [char(save_path) '\impElects.png'];
+    saveas(gcf, fname, 'png');
 end
 
 end % visualizeTimeSeriesImp
