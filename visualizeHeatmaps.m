@@ -60,7 +60,7 @@ for doi_indx = 1:length(dates)
     nexttile;
     % plot heatmap
     heatmap(u1(u1_doi(doi_indx)).impedance);
-    title(string(u1(u1_doi(doi_indx).date)));
+    title(string(u1(u1_doi(doi_indx)).date));
     % set color and limits
     colormap('turbo')
     clim([0 500])
@@ -82,7 +82,7 @@ for doi_indx = 1:length(dates)
     nexttile;
     % plot heatmap
     heatmap(u2(u2_doi(doi_indx)).impedance);
-    title(string(u2(u2_doi(doi_indx).date)));
+    title(string(u2(u2_doi(doi_indx)).date));
     % set color and limits
     colormap('turbo')
     clim([0 500])
@@ -104,7 +104,7 @@ for doi_indx = 1:length(dates)
     nexttile;
     % plot heatmap
     heatmap(u3(u3_doi(doi_indx)).impedance);
-    title(string(u3(u3_doi(doi_indx).date)));
+    title(string(u3(u3_doi(doi_indx)).date));
     % set color and limits
     colormap('turbo')
     clim([0 500])
