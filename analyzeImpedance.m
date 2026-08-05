@@ -1,4 +1,4 @@
-function [imp_data] = analyzeAllImpedance(folder_path)
+function [imp_data] = analyzeImpedance(folder_path)
 %%% given a parent directory [folder_path], will analyze all impedance
 %%% checks in subdirectories and put results into [imp_data] as organized
 %%% by array then date

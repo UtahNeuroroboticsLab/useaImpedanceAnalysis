@@ -11,7 +11,7 @@ end
 
 %% RUN ANALYSIS
 
-[imp_data] = analyzeAllImpedance(folder_path);
+[imp_data] = analyzeImpedance(folder_path);
 
 %% SEPARATE DATA
 

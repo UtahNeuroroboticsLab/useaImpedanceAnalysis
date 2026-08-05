@@ -12,11 +12,23 @@ end
 
 %% RUN ANALYSIS
 
-[imp_data] = analyzeAllImpedance(folder_path);
+% usea manuals
+pre_imp_data = getBlackrockImp(preImplantImpPath());
+
+% measured data
+[imp_data] = analyzeImpedance(folder_path);
 
 %% SEPARATE DATA
 
-% get list of array types
+% get list of array types pre implant
+arrays_pi = {pre_imp_data.array};
+
+% sort out different arrays for pre implant data
+u1_pi = pre_imp_data(contains(arrays_pi, 'USEA1'));
+u2_pi = pre_imp_data(contains(arrays_pi, 'USEA2'));
+u3_pi = pre_imp_data(contains(arrays_pi, 'USEA3'));
+
+% get list of array types post implant
 arrays = {imp_data.array};
 
 % sort out different arrays
@@ -49,12 +61,22 @@ end % loop through dates
 %% VISUALIZE
 
 % calculate layout dimensions
-rows = ceil(length(dates)/3);
-cols = min(3,length(dates));
+rows = ceil((length(dates)+1)/3);
+cols = min(3,(length(dates)+1));
 
 %%%% visualize usea 1
 figure('WindowStyle','normal');
 tiledlayout(rows, cols);
+
+% start with preimplant
+nexttile;
+% plot heatmap
+heatmap(u1_pi.impedance);
+title('Pre-Implant');
+% set color and limits
+colormap('turbo')
+clim([0 500])
+
 % cycle through dates of interest
 for doi_indx = 1:length(dates)
     nexttile;
@@ -77,6 +99,16 @@ end
 %%%% repeat for usea 2
 figure('WindowStyle','normal');
 tiledlayout(rows, cols);
+
+% start with preimplant
+nexttile;
+% plot heatmap
+heatmap(u2_pi.impedance);
+title('Pre-Implant');
+% set color and limits
+colormap('turbo')
+clim([0 500])
+
 % cycle through dates of interest
 for doi_indx = 1:length(dates)
     nexttile;
@@ -99,6 +131,16 @@ end
 %%%% repeat for usea 3
 figure('WindowStyle','normal');
 tiledlayout(rows, cols);
+
+% start with preimplant
+nexttile;
+% plot heatmap
+heatmap(u3_pi.impedance);
+title('Pre-Implant');
+% set color and limits
+colormap('turbo')
+clim([0 500])
+
 % cycle through dates of interest
 for doi_indx = 1:length(dates)
     nexttile;
