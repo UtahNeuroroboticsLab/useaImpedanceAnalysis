@@ -37,26 +37,26 @@ u3 = imp_data(contains(arrays, 'USEA3'));
 
 %% VISUALIZE BROKEN ELECTRODES
 
-% get in data and put into timetable formate
-u1_broke = timetable([u1.date]',[u1.broken]');
-u2_broke = timetable([u2.date]',[u2.broken]');
-u3_broke = timetable([u3.date]',[u3.broken]');
+% get in data and put into timetable formate (disregard disconnects)
+u1_broke = timetable([u1(~isnan([u1.impedance_mean])).date]',[u1(~isnan([u1.impedance_mean])).broken]');
+u2_broke = timetable([u2(~isnan([u2.impedance_mean])).date]',[u2(~isnan([u2.impedance_mean])).broken]');
+u3_broke = timetable([u3(~isnan([u3.impedance_mean])).date]',[u3(~isnan([u3.impedance_mean])).broken]');
 
 % generate figure
 figure()
 hold on;
 % pre implant
-scatter(datetime('20260129','InputFormat','uuuuMMdd'),u1_pi.broken);
-scatter(datetime('20260129','InputFormat','uuuuMMdd'),u2_pi.broken);
-scatter(datetime('20260129','InputFormat','uuuuMMdd'),u3_pi.broken);
+scatter(datetime('20260129','InputFormat','uuuuMMdd'),u1_pi.broken,'red');
+scatter(datetime('20260129','InputFormat','uuuuMMdd'),u2_pi.broken,'green');
+scatter(datetime('20260129','InputFormat','uuuuMMdd'),u3_pi.broken,'blue');
 
 % post implant
-plot(u1_broke.Time, u1_broke.Var1,'-o');
-plot(u2_broke.Time, u2_broke.Var1,'-o');
-plot(u3_broke.Time, u3_broke.Var1,'-o');
+plot(u1_broke.Time, u1_broke.Var1,'r-o');
+plot(u2_broke.Time, u2_broke.Var1,'g-o');
+plot(u3_broke.Time, u3_broke.Var1,'b-o');
 ylabel('Broken Electrodes');
 xlabel('Date');
-xlim([datetime('20260125','InputFormat','uuuuMMdd') datetime('20260501','InputFormat','uuuuMMdd')])
+xlim([datetime('20260125','InputFormat','uuuuMMdd') datetime('20260907','InputFormat','uuuuMMdd')])
 legend('USEA1','USEA2','USEA3');
 hold off
 
@@ -70,26 +70,26 @@ end
 
 %% VISUALIZE IMPEDANCE
 
-% get in data and put into timetable formate
-u1_imp = timetable([u1.date]',[u1.impedance_mean]');
-u2_imp = timetable([u2.date]',[u2.impedance_mean]');
-u3_imp = timetable([u3.date]',[u3.impedance_mean]');
+% get in data and put into timetable formate (disregard bad connections)
+u1_imp = timetable([u1(~isnan([u1.impedance_mean])).date]',[u1(~isnan([u1.impedance_mean])).impedance_mean]');
+u2_imp = timetable([u2(~isnan([u2.impedance_mean])).date]',[u2(~isnan([u2.impedance_mean])).impedance_mean]');
+u3_imp = timetable([u3(~isnan([u3.impedance_mean])).date]',[u3(~isnan([u3.impedance_mean])).impedance_mean]');
 
 % generate figure
 figure()
 hold on;
 % pre implant
-scatter(datetime('20260129','InputFormat','uuuuMMdd'),u1_pi.impedance_mean);
-scatter(datetime('20260129','InputFormat','uuuuMMdd'),u2_pi.impedance_mean);
-scatter(datetime('20260129','InputFormat','uuuuMMdd'),u3_pi.impedance_mean);
+scatter(datetime('20260129','InputFormat','uuuuMMdd'),u1_pi.impedance_mean,'red');
+scatter(datetime('20260129','InputFormat','uuuuMMdd'),u2_pi.impedance_mean,'green');
+scatter(datetime('20260129','InputFormat','uuuuMMdd'),u3_pi.impedance_mean,'blue');
 
 % post implant
-plot(u1_imp.Time, u1_imp.Var1,'-o');
-plot(u2_imp.Time, u2_imp.Var1,'-o');
-plot(u3_imp.Time, u3_imp.Var1,'-o');
+plot(u1_imp.Time, u1_imp.Var1,'r-o');
+plot(u2_imp.Time, u2_imp.Var1,'g-o');
+plot(u3_imp.Time, u3_imp.Var1,'b-o');
 ylabel('Impedance (k\Omega)');
 xlabel('Date');
-xlim([datetime('20260125','InputFormat','uuuuMMdd') datetime('20260501','InputFormat','uuuuMMdd')])
+xlim([datetime('20260125','InputFormat','uuuuMMdd') datetime('20260907','InputFormat','uuuuMMdd')])
 legend('USEA1','USEA2','USEA3');
 hold off
 
